@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OKC Pride Email Signature Generator</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #f4f4f4;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+    }
+
+    .wrapper {
+      max-width: 1000px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 24px;
+    }
+
+    .panel,
+    .preview-panel {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 28px;
+    }
+
+    p {
+      color: #555;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      background: black;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    .secondary {
+      background: #666;
+    }
+
+    .success {
+      margin-top: 14px;
+      color: green;
+      display: none;
+      font-weight: bold;
+    }
+
+    .signature-container {
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 24px;
+      background: #fff;
+      overflow-x: auto;
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #f8f8f8;
+      font-size: 14px;
+      color: #555;
+    }
+
+    @media (max-width: 850px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <div class="panel">
+      <h1>OKC Pride Signature Generator</h1>
+
+      <p>
+        Fill out the fields below and click Generate Signature.
+        Then copy the signature into Gmail, Outlook, or Apple Mail.
+      </p>
+
+      <label>Full Name</label>
+      <input type="text" id="name" placeholder="First Name" />
+
+      <label>Title</label>
+      <input type="text" id="title" placeholder="Your title" />
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="name@example.com" />
+
+      <label>Phone Number</label>
+      <input type="text" id="phone" placeholder="(405) 555-5555" />
+
+      <label>Department / Team</label>
+      <select id="department">
+        <option>OKC Pride & Community Outreach</option>
+        <option>Pride On 39th</option>
+      </select>
+
+      <div class="buttons">
+        <button onclick="generateSignature()">Generate Signature</button>
+        <button class="secondary" onclick="copySignature()">Copy Signature</button>
+      </div>
+
+      <div class="success" id="successMessage">
+        Signature copied successfully.
+      </div>
+
+      <div class="note">
+        Replace the logo URL inside the code later with your official OKC Pride logo for production use.
+      </div>
+    </div>
+
+    <div class="preview-panel">
+      <h1>Preview</h1>
+
+      <div class="signature-container" id="signaturePreview">
+        Your generated signature will appear here.
+      </div>
+    </div>
+
+  </div>
+
+<script>
+
+console.log('OKC Pride Signature Generator loaded successfully');
+
+function generateSignature() {
+
+  console.log('generateSignature() called');
+
+  const name = document.getElementById('name').value || 'Your Name';
+  const title = document.getElementById('title').value || 'Your Title';
+  const email = document.getElementById('email').value || 'email@example.com';
+  const phone = document.getElementById('phone').value || '(555) 555-5555';
+  const department = document.getElementById('department').value;
+
+  console.log('Collected form values:', {
+    name,
+    title,
+    email,
+    phone,
+    department
+  });
+
+  const signatureHTML = `
+
+  <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; max-width: 650px; color:#666666;">
+    <tr>
+
+      <td style="padding-right: 22px; vertical-align: middle;">
+        <img
+          src="https://static.wixstatic.com/media/eb0e52_d189c1b989f745a1b4afeb7694cdd13d~mv2.png/v1/fill/w_664,h_526,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/New%20OKCPI%20Logo%20Reveal%202025.png"
+          width="150"
+          style="display:block;"
+        />
+      </td>
+
+      <td style="width:1px; background:#c9c9c9;"></td>
+
+      <td style="padding-left: 24px; vertical-align: middle; line-height:1.3;">
+
+        <div style="font-family: Arial, sans-serif; font-size:12pt; font-weight:600; color:#666666; margin-bottom:4px;">
+          ${name}
+        </div>
+
+        <div style="font-family: Arial, sans-serif; font-size:10pt; font-weight:600; color:#666666; margin-bottom:4px;">
+          ${title}, ${department}
+        </div>
+
+        <div style="font-family: Arial, sans-serif; font-size:9pt; color:#666666; margin-bottom:2px;">
+          <a href="mailto:${email}" style="color:#666666; text-decoration:none;">${email}</a>
+          |
+          <a href="https://www.okcprideinc.org" style="color:#666666; text-decoration:none;">www.okcprideinc.org</a>
+        </div>
+
+        <div style="font-family: Arial, sans-serif; font-size:9pt; color:#666666;">
+          3100 N. Classen Blvd, Oklahoma City, OK 73118
+        </div>
+
+      </td>
+
+    </tr>
+  </table>
+
+  `;
+
+  console.log('Generated signature HTML successfully');
+  console.log('Signature HTML preview:', signatureHTML);
+
+  document.getElementById('signaturePreview').innerHTML = signatureHTML;
+
+  console.log('Signature preview updated in DOM');
+}
+
+function copySignature() {
+
+  console.log('copySignature() called');
+
+  const content = document.getElementById('signaturePreview');
+
+  console.log('Located signaturePreview element:', content);
+
+  const range = document.createRange();
+  range.selectNode(content);
+
+  console.log('Range created and node selected');
+
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+
+  console.log('Selection applied to window');
+
+  const copyResult = document.execCommand('copy');
+
+  console.log('Copy command executed:', copyResult);
+
+  window.getSelection().removeAllRanges();
+
+  console.log('Selection cleared after copy');
+
+  const success = document.getElementById('successMessage');
+  success.style.display = 'block';
+
+  console.log('Success message displayed');
+
+  setTimeout(() => {
+    success.style.display = 'none';
+    console.log('Success message hidden after timeout');
+  }, 2500);
+}
+
+</script>
+
+</body>
+</html>
